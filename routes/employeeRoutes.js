@@ -1,6 +1,7 @@
 const express = require('express');
 const { registerEmployee, getEmployees, editEmployee, deleteEmployee, getEmployeeById, editEmp } = require('../services/employeeService');
 const { employeeValidator, validateEmployee } = require('../validators/employeeValidator');
+const { authenticateToken } = require("../middleware/auth");
 const router = express.Router();
 
 
@@ -14,7 +15,7 @@ router.post('/registerEmployee', employeeValidator, validateEmployee, registerEm
 
 
 
-router.get('/', getEmployees);
+router.get('/',authenticateToken, getEmployees);
 
 router.post('/', editEmp);
 
