@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier les Employees</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+    <h1>Modifier Employee</h1>
+    <form action="/employees/edit/<%= employee %>" method="POST">
+        <label for="nom">Nom</label>
+        <input type="text" name="nom" value="<%= employee.nom %>" required>
+        
+        <label for="prenom">Premon</label>
+        <input type="text" name="prenom" value="<%= employee.prenom %>" required>
+        
+        <label for="addresse">addresse</label>
+        <input type="text" name="addresse" value="<%= employee.addresse %>" required>
+        
+        <label for="salaire">salaire</label>
+        <input type="number" name="salaire" value="<%= employee.salaire %>" required>
+        
+        <label for="dateNaissance">Date de naissance</label>
+        <input type="date" name="dateNaissance" value="<%= employee.dateNaissance %>" required>
+        
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html>

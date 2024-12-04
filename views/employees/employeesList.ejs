@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employees List</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+    <h1>Employees List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Email</th>
+                <th>salaire</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% employees.forEach(function(employee) { %>
+                <tr>
+                    <td><%= employee.nom %></td>
+                    <td><%= employee.prenom %></td>
+                    <td><%= employee.email %></td>
+                    <td><%= employee.salaire %></td>
+                    <td>
+                        <!--<a href="/employees/edit/<%= employee._id %>">Modifier</a>!-->
+                        <a href="/employees/delete/<%= employee._id %>">Delete</a>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <a href="/employees/registerEmployee">Ajouter un employees</a>
+</body>
+</html>

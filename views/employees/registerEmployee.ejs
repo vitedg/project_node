@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un nouveau employée</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+    <h1>Ajouter un nouveau employee</h1>
+    <form action="/employees/registerEmployee" method="POST">
+        <label for="nom">Nom</label>
+        <input type="text" name="nom" required>
+        
+        <label for="prenom">Prenom</label>
+        <input type="text" name="prenom" required>
+        
+        <label for="addresse">Address</label>
+        <input type="text" name="addresse" required>
+        
+        <label for="salaire">salaire</label>
+        <input type="number" name="salaire" required>
+        
+        <label for="dateNaissance">Date de naissance</label>
+        <input type="date" name="dateNaissance" required>
+        
+        <label for="email"> Email</label>
+        <input type="email" name="email" required>
+        
+        <label for="password">Mot de passes</label>
+        <input type="password" name="password" required>
+        
+        <button type="submit">Enregistrer</button>
+    </form>
+</body>
+</html>
