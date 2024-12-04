@@ -19,3 +19,16 @@ const validateEmployee = (req, res, next) => {
 };
 
 module.exports = { employeeValidator, validateEmployee };
+
+
+
+
+
+
+
+
+
+
+
+
+  

@@ -1,14 +1,13 @@
-//require('dotenv-safe').config()
+require('dotenv').config()
 const jwt = require('jsonwebtoken');
 
-const authorizationRole = (allowRoles) => {
 
-}
+
 
 // Middleware to verify token
 const verifyToken = (token) => {
     try {
-      const decoded = jwt.verify(token, "481093d8d2f9a60face0956e2905e8ec170fe6e531fd6f61b462ee11f13bb8fc");
+      const decoded = jwt.verify(token, process.env.SECRET_KEY);
       console.log("Decoded Payload:", decoded);
       return decoded;
     } catch (err) {
@@ -39,14 +38,3 @@ const authenticateToken = (req, res, next) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-  

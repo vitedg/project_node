@@ -1,7 +1,7 @@
 const express = require('express');
 const { registerEmployee, getEmployees, editEmployee, deleteEmployee, getEmployeeById, editEmp } = require('../services/employeeService');
 const { employeeValidator, validateEmployee } = require('../validators/employeeValidator');
-const { authenticateToken } = require("../middleware/auth");
+const { authenticateToken } = require("../services/authentification.js");
 const router = express.Router();
 
 
