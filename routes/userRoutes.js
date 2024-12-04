@@ -20,5 +20,10 @@ router.get('/login', (req, res) => {
 
 router.post('/login', loginUser);
 
+router.get('/logout', (req, res) => {
+    res.clearCookie('token'); // Clear the cookie
+    res.render("users/login");
+});
+
 
 module.exports = router;

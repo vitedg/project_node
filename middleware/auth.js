@@ -18,20 +18,34 @@ const verifyToken = (token) => {
 
   // Authentication middleware
 const authenticateToken = (req, res, next) => {
-    const token = req.headers['authorization']?.split(' ')[1]; // Bearer <token>
-    if (!token) return res.status(401).send("Access Denied");
+    
+    token = req.cookies.token;
+    if (!token) return res.status(401).render("error");
   
     try {
-      const verified = jwt.verify(token, secretKey);
+      const verified = jwt.verify(token, process.env.SECRET_KEY);
       req.user = verified; // Attach user info to the request
       next();
     } catch (err) {
       res.status(403).send("Invalid Token");
     }
   };
+
+  // Middleware pour vérifier les rôles
+const authorizeRole = (allowedRoles) => {
+    return (req, res, next) => {
+        token = req.cookies.token;
+        const user = jwt.decode(token);
+      if (!allowedRoles.includes(user.role)) {
+        console.log(user.role);
+        return res.status(403).render('error');
+      }
+      next();
+    };
+};
   
 
-  export {verifyToken, authenticateToken}
+  module.exports = {verifyToken, authenticateToken, authorizeRole}
 
 
 

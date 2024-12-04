@@ -1,5 +1,7 @@
 const Employee = require('../models/Employee');
-
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+require("dotenv").config();
 
 const registerEmployee = async (req, res) => {
     const { nom, prenom, addresse, salaire, dateNaissance, email, password } = req.body;
@@ -56,13 +58,48 @@ const editEmployee = async (req, res) => {
     res.render('employees/editEmployee', { employee });
 };
 
-const editEmp = async (req, res) => {
-    const employeeId = req.params.id;
-    const employee = await Employee.findById(employeeId);
-    res.render('employees/editEmployee', { employee });
+
+const editEmployeePost = async (req, res) => {
+    const { _id, nom, prenom, addresse, salaire, dateNaissance, email } = req.body;
+
+    try {
+        const updatedEmployee = await Employee.findByIdAndUpdate(
+            _id,
+            { nom, prenom, addresse, salaire, dateNaissance, email },
+            { new: true } // Retourne l'employé mis à jour
+        );
+
+        if (!updatedEmployee) {
+            return res.status(404).send('Employé non trouvé');
+        }
+
+        res.redirect(`/employee/${updatedEmployee._id}`);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Erreur serveur');
+    }
+};
+
+const loginEmploye = async (req, res) => {
+    const { email, password } = req.body;
+    const employee = await Employee.findOne({ email });
+
+    if (!employee) {
+        return res.status(400).send('user not found');
+    }
+
+
+    const isMatch = await bcrypt.compare(password, employee.password);
+    if (!isMatch) {
+        return res.status(400).send('mot de passe incorrect');
+    }
+
+
+    const token = jwt.sign({ employeeId: employee._id}, process.env.SECRET_KEY);
+    res.cookie('token', token);
+    res.redirect('/employees');
 };
 
 
 
-
-module.exports = { registerEmployee, getEmployees, deleteEmployee, editEmployee, getEmployeeById, editEmp };
+module.exports = { loginEmploye, registerEmployee, getEmployees, deleteEmployee, editEmployee, getEmployeeById, editEmployeePost };

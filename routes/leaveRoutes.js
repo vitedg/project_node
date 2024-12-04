@@ -11,4 +11,10 @@ router.get('/createLeave', (req, res) => {
 
 router.post('/createLeave', leaveValidator, validateLeave, createLeave);
 
+router.get('/login', (req, res) => {
+    res.render('leaves/login');
+});
+
+
+
 module.exports = router;

@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>Modifier Employee</h1>
-    <form action="/employees/edit/<%= employee %>" method="POST">
+    <form action="/employees/edit/" method="POST">
         <label for="nom">Nom</label>
         <input type="text" name="nom" value="<%= employee.nom %>" required>
         
@@ -21,9 +21,10 @@
         <label for="salaire">salaire</label>
         <input type="number" name="salaire" value="<%= employee.salaire %>" required>
         
-        <label for="dateNaissance">Date de naissance</label>
-        <input type="date" name="dateNaissance" value="<%= employee.dateNaissance %>" required>
-        
+        <!--<label for="dateNaissance">Date de naissance</label>-->
+        <input type="hidden" type="date" name="dateNaissance" value="<%= employee.dateNaissance %>" required>
+        <input type="hidden" name="_id" value="<%= employee._id %>">
+
         <button type="submit">Update</button>
     </form>
 </body>

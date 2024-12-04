@@ -1,7 +1,7 @@
 const express = require('express');
-const { registerEmployee, getEmployees, editEmployee, deleteEmployee, getEmployeeById, editEmp } = require('../services/employeeService');
+const { loginEmploye, registerEmployee, getEmployees, editEmployee, deleteEmployee, getEmployeeById, editEmployeePost } = require('../services/employeeService');
 const { employeeValidator, validateEmployee } = require('../validators/employeeValidator');
-const { authenticateToken } = require("../services/authentification.js");
+const { authenticateToken,authorizeRole } = require("../middleware/auth");
 const router = express.Router();
 
 
@@ -15,9 +15,15 @@ router.post('/registerEmployee', employeeValidator, validateEmployee, registerEm
 
 
 
-router.get('/',authenticateToken, getEmployees);
+router.get('/',authenticateToken, authorizeRole(["Manager","RH"]) , getEmployees);
 
-router.post('/', editEmp);
+router.post('/', editEmployee);
+
+router.get('/login', (req, res) => {
+    res.render('employees/login');
+});
+
+router.post('/login', loginEmploye);
 
 
 router.get('/edit/:id', getEmployeeById);
@@ -26,7 +32,7 @@ router.get('/edit/:id', getEmployeeById);
     
     res.render('employees/editEmployee', { employeeId });
 });*/
-
+router.post('/edit/:id', editEmployeePost);
 
 router.get('/delete/:id', deleteEmployee);
 

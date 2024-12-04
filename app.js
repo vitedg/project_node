@@ -7,6 +7,8 @@ const employeeRoutes = require('./routes/employeeRoutes');
 const leaveRoutes = require('./routes/leaveRoutes');
 
 const app = express();
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
 
 mongoose.connect('mongodb://localhost/myapp', { useNewUrlParser: true, useUnifiedTopology: true })
